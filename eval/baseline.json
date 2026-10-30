@@ -1,0 +1,6 @@
+{
+  "min_score": 0.85,
+  "max_drop": 0.05,
+  "score": null,
+  "note": "Set 'score' to the first real passing run's score. While null, only min_score is enforced."
+}

@@ -1,0 +1,30 @@
+[project]
+name = "llm-serving-observability"
+version = "0.1.0"
+description = "Production-style LLM serving: OpenAI-compatible endpoint, caching, rate limits, metrics, CI eval gate"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.110",
+  "uvicorn>=0.29",
+  "httpx>=0.27",
+  "prometheus-client>=0.20",
+  "redis>=5.0",
+]
+
+[project.optional-dependencies]
+semantic = ["fastembed>=0.4"]
+load = ["locust>=2.29"]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "."]

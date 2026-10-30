@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" font-family="system-ui, sans-serif" font-size="13">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#555"/>
+    </marker>
+    <style>
+      .box { fill: #f4f6fb; stroke: #4a5a8a; stroke-width: 1.5; rx: 8; }
+      .gw { fill: #eaf3ff; stroke: #2a62c4; stroke-width: 2; rx: 10; }
+      .st { fill: #fff6e6; stroke: #c48a2a; stroke-width: 1.5; rx: 8; }
+      .ci { fill: #eaf8ee; stroke: #2a8a4a; stroke-width: 1.5; rx: 8; }
+      .t { fill: #1c2433; } .s { fill: #566; font-size: 11px; }
+      .l { stroke: #555; stroke-width: 1.5; fill: none; marker-end: url(#a); }
+      .d { stroke-dasharray: 5 4; }
+    </style>
+  </defs>
+  <text x="20" y="28" class="t" font-size="16" font-weight="600">llm-serving-observability: request path, observability and CI gate</text>
+
+  <rect class="box" x="20" y="150" width="130" height="70"/>
+  <text x="85" y="180" text-anchor="middle" class="t">Client</text>
+  <text x="85" y="198" text-anchor="middle" class="s">OpenAI SDK, API key</text>
+
+  <rect class="gw" x="210" y="70" width="330" height="260"/>
+  <text x="375" y="95" text-anchor="middle" class="t" font-weight="600">FastAPI gateway  /v1/chat/completions</text>
+  <text x="375" y="125" text-anchor="middle" class="t">1. API-key auth, consumer = team</text>
+  <text x="375" y="150" text-anchor="middle" class="t">2. Rate limit (per key, per minute)</text>
+  <text x="375" y="175" text-anchor="middle" class="t">3. Cache lookup: exact, then semantic</text>
+  <text x="375" y="200" text-anchor="middle" class="t">4. Concurrency gate (503 if queue wait too long)</text>
+  <text x="375" y="225" text-anchor="middle" class="t">5. Inject versioned system prompt</text>
+  <text x="375" y="250" text-anchor="middle" class="t">6. Upstream call with timeout, stream relay</text>
+  <text x="375" y="275" text-anchor="middle" class="t">7. Record metrics: latency, tokens, cost</text>
+  <text x="375" y="310" text-anchor="middle" class="s">/health  /ready  /metrics</text>
+
+  <rect class="box" x="640" y="110" width="170" height="70"/>
+  <text x="725" y="140" text-anchor="middle" class="t">Upstream LLM</text>
+  <text x="725" y="158" text-anchor="middle" class="s">Groq API or vLLM (OpenAI API)</text>
+
+  <rect class="st" x="640" y="230" width="170" height="70"/>
+  <text x="725" y="260" text-anchor="middle" class="t">Redis</text>
+  <text x="725" y="278" text-anchor="middle" class="s">cache + rate-limit counters</text>
+
+  <rect class="box" x="210" y="390" width="150" height="60"/>
+  <text x="285" y="418" text-anchor="middle" class="t">Prometheus</text>
+  <text x="285" y="436" text-anchor="middle" class="s">scrapes /metrics</text>
+  <rect class="box" x="400" y="390" width="140" height="60"/>
+  <text x="470" y="418" text-anchor="middle" class="t">Grafana</text>
+  <text x="470" y="436" text-anchor="middle" class="s">LLM serving dashboard</text>
+
+  <rect class="ci" x="640" y="390" width="290" height="80"/>
+  <text x="785" y="414" text-anchor="middle" class="t" font-weight="600">CI regression gate (GitHub Actions)</text>
+  <text x="785" y="434" text-anchor="middle" class="s">eval/cases.jsonl through the app in-process</text>
+  <text x="785" y="452" text-anchor="middle" class="s">score below baseline: exit 1, merge blocked</text>
+
+  <path class="l" d="M150 185 H210"/>
+  <path class="l" d="M540 145 H640"/>
+  <path class="l" d="M540 265 H640"/>
+  <path class="l d" d="M285 330 V390"/>
+  <path class="l" d="M360 420 H400"/>
+  <path class="l d" d="M785 390 V320 Q785 300 700 300 L540 300" />
+</svg>
